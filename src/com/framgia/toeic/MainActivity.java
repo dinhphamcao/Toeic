@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 
 	int amoutOfQuestion = 10;
 	int index = 0;
+	String userAnswer = "";
 	List<Question> list_question;
 	Question currentQuestion;
 	int countCorrectAnswer = 0;
@@ -33,6 +34,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 
 		// init defined
 		tv_question_title = (TextView) findViewById(R.id.tv_question_title);
@@ -59,29 +61,11 @@ public class MainActivity extends Activity {
 		list_question = db.autoGetQuestion(amoutOfQuestion);
 		show(index);
 
-		// Button Back to previous clicked
-		btn_previousQuestion.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (index == 0) {
-					Toast.makeText(getBaseContext(), "Can not back",
-							Toast.LENGTH_SHORT).show();
-
-				} else {
-					index--;
-					show(index);
-				}
-
-			}
-		});
-
 		// Event on Radiobutton group, change color whenever click was choosen
 		radioGroup1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				String answer = "";
+
 				rbtn_a.setTextColor(Color.BLACK);
 				rbtn_b.setTextColor(Color.BLACK);
 				rbtn_c.setTextColor(Color.BLACK);
@@ -90,48 +74,101 @@ public class MainActivity extends Activity {
 
 				// check answer a
 				case R.id.rbtn_a:
-					answer = "a";
-					if (currentQuestion.correctAnswer.equalsIgnoreCase(answer)) {
+					userAnswer = "a";
+					if (currentQuestion.correctAnswer
+							.equalsIgnoreCase(userAnswer)) {
 						rbtn_a.setTextColor(Color.GREEN);
+						CheckAnswer();
 					} else {
 						rbtn_a.setTextColor(Color.RED);
 					}
+					rbtn_a.setEnabled(false);
+					rbtn_b.setEnabled(false);
+					rbtn_c.setEnabled(false);
+					rbtn_d.setEnabled(false);
 					break;
 
 				// check answer b
 				case R.id.rbtn_b:
-					answer = "b";
-					if (currentQuestion.correctAnswer.equalsIgnoreCase(answer)) {
+					userAnswer = "b";
+
+					if (currentQuestion.correctAnswer
+							.equalsIgnoreCase(userAnswer)) {
 						rbtn_b.setTextColor(Color.GREEN);
+						CheckAnswer();
 					} else {
 						rbtn_b.setTextColor(Color.RED);
 					}
+					rbtn_a.setEnabled(false);
+					rbtn_b.setEnabled(false);
+					rbtn_c.setEnabled(false);
+					rbtn_d.setEnabled(false);
 					break;
 
 				// check answer c
 				case R.id.rbtn_c:
-					answer = "c";
-					if (currentQuestion.correctAnswer.equalsIgnoreCase(answer)) {
+					userAnswer = "c";
+
+					if (currentQuestion.correctAnswer
+							.equalsIgnoreCase(userAnswer)) {
 						rbtn_c.setTextColor(Color.GREEN);
+						CheckAnswer();
 					} else {
 						rbtn_c.setTextColor(Color.RED);
 					}
+					rbtn_a.setEnabled(false);
+					rbtn_b.setEnabled(false);
+					rbtn_c.setEnabled(false);
+					rbtn_d.setEnabled(false);
 					break;
 
 				// check answer d
 				case R.id.rbtn_d:
-					answer = "d";
-					if (currentQuestion.correctAnswer.equalsIgnoreCase(answer)) {
+					userAnswer = "d";
+					if (currentQuestion.correctAnswer
+							.equalsIgnoreCase(userAnswer)) {
 						rbtn_d.setTextColor(Color.GREEN);
+						CheckAnswer();
+
 					} else {
 						rbtn_d.setTextColor(Color.RED);
 					}
+					rbtn_a.setEnabled(false);
+					rbtn_b.setEnabled(false);
+					rbtn_c.setEnabled(false);
+					rbtn_d.setEnabled(false);
 					break;
 				}
 
-				if (currentQuestion.correctAnswer.equalsIgnoreCase(answer)) {
-					countCorrectAnswer++;
-					// tv_Scores.setText(countCorrectAnswer + "/10");
+			}
+		});
+
+		// Button Back to previous clicked
+		btn_previousQuestion.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				rbtn_a.setEnabled(true);
+				rbtn_b.setEnabled(true);
+				rbtn_c.setEnabled(true);
+				rbtn_d.setEnabled(true);
+				if (index == 0) {
+					Toast.makeText(getBaseContext(), "Can not back",
+							Toast.LENGTH_SHORT).show();
+
+				} else {
+					index--;
+					show(index);
+					if (currentQuestion.answer.equalsIgnoreCase("a"))
+						rbtn_a.setChecked(true);
+					else if (currentQuestion.answer.equalsIgnoreCase("b"))
+						rbtn_b.setChecked(true);
+					else if (currentQuestion.answer.equalsIgnoreCase("c"))
+						rbtn_c.setChecked(true);
+					else if (currentQuestion.answer.equalsIgnoreCase("d"))
+						rbtn_d.setChecked(true);
+
 				}
 
 			}
@@ -157,13 +194,49 @@ public class MainActivity extends Activity {
 					index++;
 					if (index < amoutOfQuestion) {
 						show(index);
+						rbtn_a.setEnabled(true);
+						rbtn_b.setEnabled(true);
+						rbtn_c.setEnabled(true);
+						rbtn_d.setEnabled(true);
+						if (index == amoutOfQuestion - 1) {
+							btn_nextQuestion.setText("Finish");
+							btn_nextQuestion
+									.setOnClickListener(new OnClickListener() {
+										@Override
+										public void onClick(View v) {
+											// TODO Auto-generated method stub
+											index = 1;
+										}
+									});
+						}
 					} else {
-						index = 0;
+						index = -1;
 					}
+
 				}
 			}
 		});
 
+	}
+
+	// function check answer
+	// check answer
+	public void CheckAnswer() {
+		String a = "";
+		if (rbtn_a.isChecked() == true)
+			a = "a";
+		else if (rbtn_b.isChecked() == true)
+			a = "b";
+		else if (rbtn_c.isChecked() == true)
+			a = "c";
+		else if (rbtn_d.isChecked() == true)
+			a = "d";
+
+		list_question.get(index).answer = a;
+
+		if (a.equalsIgnoreCase(currentQuestion.correctAnswer))
+			countCorrectAnswer++;
+		tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
 	}
 
 	// function show the question
@@ -178,45 +251,6 @@ public class MainActivity extends Activity {
 		rbtn_d.setText(currentQuestion.answer_d);
 		radioGroup1.clearCheck();
 	}
-
-	// public void CheckAnswer() {
-	// String answer = "";
-	// // if (rbtn_a.isChecked() == true) {
-	// // answer = "a";
-	// // if (currentQuestion.answer.equalsIgnoreCase(answer)) {
-	// // rbtn_a.setTextColor(Color.GREEN);
-	// // } else {
-	// // rbtn_a.setTextColor(Color.RED);
-	// // }
-	// // } else if (rbtn_b.isChecked() == true) {
-	// // answer = "b";
-	// // if (currentQuestion.answer.equalsIgnoreCase(answer)) {
-	// // rbtn_b.setTextColor(Color.GREEN);
-	// // } else {
-	// // rbtn_b.setTextColor(Color.RED);
-	// // }
-	// // } else if (rbtn_c.isChecked() == true) {
-	// // answer = "c";
-	// // if (currentQuestion.answer.equalsIgnoreCase(answer)) {
-	// // rbtn_c.setTextColor(Color.GREEN);
-	// // } else {
-	// // rbtn_c.setTextColor(Color.RED);
-	// // }
-	// // } else if (rbtn_d.isChecked() == true) {
-	// // answer = "d";
-	// // if (currentQuestion.answer.equalsIgnoreCase(answer)) {
-	// // rbtn_d.setTextColor(Color.GREEN);
-	// // } else {
-	// // rbtn_d.setTextColor(Color.RED);
-	// // }
-	// // }
-	// // save the answer from user to the list
-	// list_question.get(index).answer = answer;
-	// // check answer with the correct answer
-	// if (answer.equalsIgnoreCase(currentQuestion.correctAnswer)) {
-	// countCorrectAnswer += 1;
-	// }
-	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
