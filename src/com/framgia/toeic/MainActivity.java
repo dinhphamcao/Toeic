@@ -35,7 +35,6 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-
 		// init defined
 		tv_question_title = (TextView) findViewById(R.id.tv_question_title);
 		tv_question = (TextView) findViewById(R.id.tv_question);
@@ -48,6 +47,8 @@ public class MainActivity extends Activity {
 		btn_previousQuestion = (Button) findViewById(R.id.btn_previousQuestion);
 		btn_nextQuestion = (Button) findViewById(R.id.btn_nextQuestion);
 		btn_Scores = (Button) findViewById(R.id.btn_Scores);
+		btn_previousQuestion.setVisibility(View.GONE);
+
 		QuestionManagement db = new QuestionManagement(this);
 		try {
 			db.createDatabase();
@@ -60,6 +61,8 @@ public class MainActivity extends Activity {
 		list_question = new ArrayList<Question>();
 		list_question = db.autoGetQuestion(amoutOfQuestion);
 		show(index);
+
+		tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
 
 		// Event on Radiobutton group, change color whenever click was choosen
 		radioGroup1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -143,33 +146,22 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		// Button Back to previous clicked
-		btn_previousQuestion.setOnClickListener(new OnClickListener() {
+		// Button Scores clicked
+
+		btn_Scores.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				index = 0;
+				show(index);
+				btn_nextQuestion.setEnabled(true);
 				rbtn_a.setEnabled(true);
 				rbtn_b.setEnabled(true);
 				rbtn_c.setEnabled(true);
 				rbtn_d.setEnabled(true);
-				if (index == 0) {
-					Toast.makeText(getBaseContext(), "Can not back",
-							Toast.LENGTH_SHORT).show();
-
-				} else {
-					index--;
-					show(index);
-					if (currentQuestion.answer.equalsIgnoreCase("a"))
-						rbtn_a.setChecked(true);
-					else if (currentQuestion.answer.equalsIgnoreCase("b"))
-						rbtn_b.setChecked(true);
-					else if (currentQuestion.answer.equalsIgnoreCase("c"))
-						rbtn_c.setChecked(true);
-					else if (currentQuestion.answer.equalsIgnoreCase("d"))
-						rbtn_d.setChecked(true);
-
-				}
+				countCorrectAnswer = 0;
+				tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
 
 			}
 		});
@@ -199,15 +191,7 @@ public class MainActivity extends Activity {
 						rbtn_c.setEnabled(true);
 						rbtn_d.setEnabled(true);
 						if (index == amoutOfQuestion - 1) {
-							btn_nextQuestion.setText("Finish");
-							btn_nextQuestion
-									.setOnClickListener(new OnClickListener() {
-										@Override
-										public void onClick(View v) {
-											// TODO Auto-generated method stub
-											index = 1;
-										}
-									});
+							btn_nextQuestion.setEnabled(false);
 						}
 					} else {
 						index = -1;
