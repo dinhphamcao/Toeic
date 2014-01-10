@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.framgia.toeic.until.AppConst;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -14,22 +16,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class QuestionManagement extends SQLiteOpenHelper {
-	private static String DB_PATH="/data/data/com.framgia.toeic/databases/";
-	private static String DB_NAME="databasecauhoi.sqlite";
-	private static final int DB_VERSION=1;
-	private static final String TABLE_NAME="tablecauhoi";
-
 	private SQLiteDatabase myDatabase;
 	private final Context myContext;
 
 	public QuestionManagement(Context context) {
-		super(context, DB_NAME, null, DB_VERSION);
+		super(context, AppConst.DB_NAME, null, AppConst.DB_VERSION);
 		// TODO Auto-generated constructor stub
 		myContext = context;
 	}
 
 	public void openDatabase() throws SQLException {
-		String myPath = DB_PATH + DB_NAME;
+		String myPath = AppConst.DB_PATH + AppConst.DB_NAME;
 		myDatabase = SQLiteDatabase.openDatabase(myPath, null,
 				SQLiteDatabase.OPEN_READONLY);
 	}
@@ -43,7 +40,7 @@ public class QuestionManagement extends SQLiteOpenHelper {
 	private boolean checkDatabase() {
 		SQLiteDatabase checkDB = null;
 		try {
-			String myPath = DB_PATH + DB_NAME;
+			String myPath = AppConst.DB_PATH + AppConst.DB_NAME;
 			checkDB = SQLiteDatabase.openDatabase(myPath, null,
 					SQLiteDatabase.OPEN_READONLY);
 
@@ -58,8 +55,8 @@ public class QuestionManagement extends SQLiteOpenHelper {
 	}
 
 	private void copyDatabase() throws IOException {
-		InputStream myInput = myContext.getAssets().open(DB_NAME);
-		String outFileName = DB_PATH + DB_NAME;
+		InputStream myInput = myContext.getAssets().open(AppConst.DB_NAME);
+		String outFileName = AppConst.DB_PATH + AppConst.DB_NAME;
 		OutputStream myOutput = new FileOutputStream(outFileName);
 		byte[] buffer = new byte[1024];
 		int length;
@@ -86,17 +83,18 @@ public class QuestionManagement extends SQLiteOpenHelper {
 		}
 	}
 
-	public Cursor getAllQuestions() {
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor pointer = db.rawQuery("select * from tablecauhoi", null);
-		return pointer;
-	}
+	// public Cursor getAllQuestions() {
+	// SQLiteDatabase db = this.getReadableDatabase();
+	// Cursor pointer = db.rawQuery("select * from " + AppConst.TABLE_READING,
+	// null);
+	// return pointer;
+	// }
 
-	public List<Question> autoGetQuestion(int numOfQuestion) {
+	public List<Question> autoGetQuestion(int numOfQuestion, String tableName) {
 		List<Question> list_question = new ArrayList<Question>();
 		String limit = "0, " + numOfQuestion;
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor pointer = db.query(TABLE_NAME, null, null, null, null, null,
+		Cursor pointer = db.query(tableName, null, null, null, null, null,
 				"random()", limit);
 		pointer.moveToFirst();
 		do {

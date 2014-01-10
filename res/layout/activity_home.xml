@@ -21,23 +21,25 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btn_reading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_marginBottom="10dp"
+            android:text="Reading" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_listening"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_marginBottom="10dp"
+            android:text="Listening" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btn_writing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
-
+            android:layout_marginBottom="10dp"
+            android:text="Writing" />
     </LinearLayout>
 
     <LinearLayout
