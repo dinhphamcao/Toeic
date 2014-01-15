@@ -23,8 +23,9 @@ public class DetailActivity extends Activity {
 
 	int amoutOfQuestion = 10;
 	int index = 0;
-	private int dbType;
-	private String dbName = null;
+
+	// variable get index of READING Test type
+	private int indexTest;
 
 	String userAnswer = "";
 	List<Question> list_question;
@@ -63,15 +64,13 @@ public class DetailActivity extends Activity {
 			Toast.makeText(this, "Database creator error", Toast.LENGTH_SHORT)
 					.show();
 		}
-		dbType = getIntent().getExtras().getInt(AppConst.DB_TYPE);
+
+		indexTest = getIntent().getExtras().getInt(AppConst.TEST_INDEX);
 
 		list_question = new ArrayList<Question>();
-
-		list_question = db.autoGetQuestion(amoutOfQuestion,
-				getDatabaseName(dbType));
-
+		list_question = db.getQuestion(amoutOfQuestion,
+				getDatabaseName(indexTest));
 		show(index);
-
 		tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
 
 		// Event on Radiobutton group, change color whenever click was choosen
@@ -157,7 +156,6 @@ public class DetailActivity extends Activity {
 		});
 
 		// Button Scores clicked
-
 		btn_Scores.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -216,20 +214,26 @@ public class DetailActivity extends Activity {
 	private String getDatabaseName(int kindOfTest) {
 		String testKind = null;
 		switch (kindOfTest) {
-		case AppConst.READING:
-			testKind = AppConst.TABLE_READING;
+		case AppConst.READING1:
+			testKind = AppConst.TABLE_READING_1;
 			break;
-		case AppConst.LISTENING:
-			testKind = AppConst.TABLE_LISTENING;
+		case AppConst.READING2:
+			testKind = AppConst.TABLE_READING_2;
 			break;
-		case AppConst.WRITING:
-			testKind = AppConst.TABLE_WRITING;
+		case AppConst.READING3:
+			testKind = AppConst.TABLE_READING_3;
 			break;
+
+		// case AppConst.LISTENING:
+		// testKind = AppConst.TABLE_LISTENING;
+		// break;
+		// case AppConst.WRITING:
+		// testKind = AppConst.TABLE_WRITING;
+		// break;
 		}
 		return testKind;
 	}
 
-	// function check answer
 	// check answer
 	public void CheckAnswer() {
 		String a = "";

@@ -8,22 +8,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 	// initial creator
-	Button btn_reading, btn_listening, btn_writing;
+	Button btn_reading, btn_listening;
+	TextView tv_reading, tv_listening;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		btn_reading = (Button) findViewById(R.id.btn_reading);
-		btn_listening = (Button) findViewById(R.id.btn_listening);
-		btn_writing = (Button) findViewById(R.id.btn_writing);
-		btn_reading.setOnClickListener(this);
-		btn_listening.setOnClickListener(this);
-		btn_writing.setOnClickListener(this);
+		tv_reading = (TextView) findViewById(R.id.tv_reading);
+		tv_listening = (TextView) findViewById(R.id.tv_listening);
+
+		// set text size
+		tv_reading.setTextSize(getResources().getDimension(R.dimen.textsize));
+		tv_listening.setTextSize(getResources().getDimension(R.dimen.textsize));
+
+		tv_reading.setOnClickListener(this);
+		tv_listening.setOnClickListener(this);
 
 	}
 
@@ -31,22 +36,32 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.btn_reading:
-			startActivityShowDB(AppConst.READING);
+		case R.id.tv_reading:
+			startActivityShowTestList(AppConst.READING);
 			break;
-		case R.id.btn_listening:
-			startActivityShowDB(AppConst.LISTENING);
+		case R.id.tv_listening:
+			startActivityShowTestList(AppConst.LISTENING);
 			break;
-		case R.id.btn_writing:
-			startActivityShowDB(AppConst.WRITING);
-			break;
+
+		// case R.id.btn_listening:
+		// Intent listening = new Intent(MainActivity.this,
+		//
+		// DetailActivityListening.class);
+		// listening.putExtra(AppConst.DB_TYPE, AppConst.LISTENING);
+		// startActivity(listening);
+		// break;
+		// case R.id.btn_writing:
+		// startActivityShowDB(AppConst.WRITING);
+		// break;
 		}
 
 	}
 
-	private void startActivityShowDB(int requestDB) {
-		Intent intentDB = new Intent(MainActivity.this, DetailActivity.class);
-		intentDB.putExtra(AppConst.DB_TYPE, requestDB);
-		startActivity(intentDB);
+	private void startActivityShowTestList(int requestTestList) {
+		Intent intentTestlist = new Intent(MainActivity.this,
+				ListTestActivity.class);
+		intentTestlist.putExtra(AppConst.DB_TYPE, requestTestList);
+		startActivity(intentTestlist);
 	}
+
 }

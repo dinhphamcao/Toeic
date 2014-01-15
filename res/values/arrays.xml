@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="list_reading">
+        <item>Reading Test 1</item>
+        <item>Reading Test 2</item>
+        <item>Reading Test 3</item>
+    </string-array>
+    <string-array name="list_listening">
+        <item>Listening Test 1</item>
+        <item>Listening Test 2</item>
+        <item>Listening Test 3</item>
+    </string-array>
+
+</resources>

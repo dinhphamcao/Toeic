@@ -25,6 +25,7 @@ public class QuestionManagement extends SQLiteOpenHelper {
 		myContext = context;
 	}
 
+	//open data base
 	public void openDatabase() throws SQLException {
 		String myPath = AppConst.DB_PATH + AppConst.DB_NAME;
 		myDatabase = SQLiteDatabase.openDatabase(myPath, null,
@@ -36,7 +37,8 @@ public class QuestionManagement extends SQLiteOpenHelper {
 			myDatabase.close();
 		super.close();
 	}
-
+	
+	//check database
 	private boolean checkDatabase() {
 		SQLiteDatabase checkDB = null;
 		try {
@@ -54,6 +56,7 @@ public class QuestionManagement extends SQLiteOpenHelper {
 
 	}
 
+	
 	private void copyDatabase() throws IOException {
 		InputStream myInput = myContext.getAssets().open(AppConst.DB_NAME);
 		String outFileName = AppConst.DB_PATH + AppConst.DB_NAME;
@@ -90,12 +93,12 @@ public class QuestionManagement extends SQLiteOpenHelper {
 	// return pointer;
 	// }
 
-	public List<Question> autoGetQuestion(int numOfQuestion, String tableName) {
+	public List<Question> getQuestion(int numOfQuestion, String tableName) {
 		List<Question> list_question = new ArrayList<Question>();
 		String limit = "0, " + numOfQuestion;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor pointer = db.query(tableName, null, null, null, null, null,
-				"random()", limit);
+				"_id", limit);
 		pointer.moveToFirst();
 		do {
 			Question x = new Question();

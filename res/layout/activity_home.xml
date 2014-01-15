@@ -20,26 +20,23 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/btn_reading"
+        <TextView
+            android:id="@+id/tv_reading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Reading" />
+            android:background="@drawable/row"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:text="Reading"
+            android:textSize="30sp" />
 
-        <Button
-            android:id="@+id/btn_listening"
+        <TextView
+            android:id="@+id/tv_listening"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Listening" />
-
-        <Button
-            android:id="@+id/btn_writing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Writing" />
+            android:background="@drawable/row"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:text="Listening"
+            android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout

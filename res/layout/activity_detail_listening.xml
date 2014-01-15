@@ -8,7 +8,7 @@
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:orientation="vertical" >
 
@@ -23,52 +23,65 @@
             android:id="@+id/tv_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Question will be show here"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <RadioGroup
-            android:id="@+id/radioGroup1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <RadioButton
-                android:id="@+id/rbtn_a"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choice A" />
-
-            <RadioButton
-                android:id="@+id/rbtn_b"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choice B" />
-
-            <RadioButton
-                android:id="@+id/rbtn_c"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choice C" />
-
-            <RadioButton
-                android:id="@+id/rbtn_d"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choice D" />
-        </RadioGroup>
+        <ImageView
+            android:id="@+id/imv_Picture"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/splash" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rbtn_a"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:text="A" />
+
+            <RadioButton
+                android:id="@+id/rbtn_b"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:text="B" />
+
+            <RadioButton
+                android:id="@+id/rbtn_c"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:text="C" />
+
+            <RadioButton
+                android:id="@+id/rbtn_d"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:text="D" />
+        </RadioGroup>
 
         <TextView
             android:id="@+id/tv_Scores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:layout_gravity="center"
+            android:text="Scores"
             android:textAppearance="?android:attr/textAppearanceLarge" >
         </TextView>
     </LinearLayout>
