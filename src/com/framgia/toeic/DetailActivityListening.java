@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -108,7 +110,8 @@ public class DetailActivityListening extends Activity {
 
 		show(index, imageList, musicList);
 
-		tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
+		tv_Scores.setText("Total correct answer(s): " + countCorrectAnswer
+				+ "/" + amoutOfQuestion);
 
 		// Radiogroup clicked
 
@@ -198,7 +201,8 @@ public class DetailActivityListening extends Activity {
 				btn_nextQuestion.setEnabled(true);
 				countCorrectAnswer = 0;
 				btn_nextQuestion.setText("Next Question");
-				tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
+				tv_Scores.setText("Total correct answer(s): "
+						+ countCorrectAnswer + "/" + amoutOfQuestion);
 
 			}
 		});
@@ -268,14 +272,6 @@ public class DetailActivityListening extends Activity {
 		return testKind;
 	}
 
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		super.onBackPressed();
-		ourSong.release();
-		finish();
-	}
-
 	// check answer function
 	public void CheckAnswer() {
 		String a = "";
@@ -292,7 +288,8 @@ public class DetailActivityListening extends Activity {
 
 		if (a.equalsIgnoreCase(currentQuestion.correctAnswer))
 			countCorrectAnswer++;
-		tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
+		tv_Scores.setText("Total correct answer(s): " + countCorrectAnswer
+				+ "/" + amoutOfQuestion);
 	}
 
 	// show to the layout from DB
@@ -327,6 +324,16 @@ public class DetailActivityListening extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		if (ourSong.isPlaying()) {
+			ourSong.stop();
+			finish();
+		} else
+			return;
 	}
 
 }

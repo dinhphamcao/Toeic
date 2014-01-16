@@ -71,7 +71,8 @@ public class DetailActivity extends Activity {
 		list_question = db.getQuestion(amoutOfQuestion,
 				getDatabaseName(indexTest));
 		show(index);
-		tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
+		tv_Scores.setText("Total correct answer(s): " + countCorrectAnswer
+				+ "/" + amoutOfQuestion);
 
 		// Event on Radiobutton group, change color whenever click was choosen
 		radioGroup1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -169,7 +170,8 @@ public class DetailActivity extends Activity {
 				rbtn_c.setEnabled(true);
 				rbtn_d.setEnabled(true);
 				countCorrectAnswer = 0;
-				tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
+				tv_Scores.setText("Total correct answer(s): "
+						+ countCorrectAnswer + "/" + amoutOfQuestion);
 
 			}
 		});
@@ -189,6 +191,7 @@ public class DetailActivity extends Activity {
 				if (radioGroup1.getCheckedRadioButtonId() == -1) {
 					Toast.makeText(getBaseContext(), "Please select an answer",
 							Toast.LENGTH_SHORT).show();
+
 				} else {
 
 					index++;
@@ -250,7 +253,8 @@ public class DetailActivity extends Activity {
 
 		if (a.equalsIgnoreCase(currentQuestion.correctAnswer))
 			countCorrectAnswer++;
-		tv_Scores.setText(countCorrectAnswer + "/" + amoutOfQuestion);
+		tv_Scores.setText("Total correct answer(s): " + countCorrectAnswer
+				+ "/" + amoutOfQuestion);
 	}
 
 	// function show the question
@@ -272,5 +276,6 @@ public class DetailActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
 
 }
