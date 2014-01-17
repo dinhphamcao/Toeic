@@ -67,26 +67,28 @@ public final class R {
         public static final int splash=0x7f020020;
     }
     public static final class id {
-        public static final int Main=0x7f0a000c;
-        public static final int action_settings=0x7f0a0013;
-        public static final int btn_Scores=0x7f0a0009;
+        public static final int Main=0x7f0a000e;
+        public static final int action_settings=0x7f0a0015;
+        public static final int btn_Confirm=0x7f0a0009;
+        public static final int btn_ConfirmListening=0x7f0a000d;
+        public static final int btn_Reset=0x7f0a0008;
+        public static final int btn_ResetListening=0x7f0a000c;
         public static final int btn_nextQuestion=0x7f0a000a;
-        public static final int btn_previousQuestion=0x7f0a0008;
-        public static final int footer=0x7f0a000f;
-        public static final int img_splash=0x7f0a0010;
+        public static final int footer=0x7f0a0011;
+        public static final int img_splash=0x7f0a0012;
         public static final int imv_Picture=0x7f0a000b;
         public static final int radioGroup1=0x7f0a0002;
         public static final int rbtn_a=0x7f0a0003;
         public static final int rbtn_b=0x7f0a0004;
         public static final int rbtn_c=0x7f0a0005;
         public static final int rbtn_d=0x7f0a0006;
-        public static final int test_list=0x7f0a0011;
+        public static final int test_list=0x7f0a0013;
         public static final int tv_Scores=0x7f0a0007;
-        public static final int tv_listening=0x7f0a000e;
+        public static final int tv_listening=0x7f0a0010;
         public static final int tv_question=0x7f0a0001;
         public static final int tv_question_title=0x7f0a0000;
-        public static final int tv_reading=0x7f0a000d;
-        public static final int tv_test_row=0x7f0a0012;
+        public static final int tv_reading=0x7f0a000f;
+        public static final int tv_test_row=0x7f0a0014;
     }
     public static final class layout {
         public static final int activity_detail=0x7f030000;

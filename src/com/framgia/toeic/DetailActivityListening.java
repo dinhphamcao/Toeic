@@ -9,9 +9,12 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -38,7 +41,7 @@ public class DetailActivityListening extends Activity {
 	ImageView imv_Picture;
 	RadioButton rbtn_a, rbtn_b, rbtn_c, rbtn_d;
 	RadioGroup radioGroup1;
-	Button btn_previousQuestion, btn_nextQuestion, btn_Scores;
+	Button btn_ConfirmListening, btn_nextQuestion, btn_ResetListening;
 
 	int[] imageList = null;
 	int[] musicList = null;
@@ -74,20 +77,33 @@ public class DetailActivityListening extends Activity {
 
 		// initial defined
 		tv_question_title = (TextView) findViewById(R.id.tv_question_title);
+		tv_question_title.setTextSize(getResources().getDimension(
+				R.dimen.textsize));
 		tv_question = (TextView) findViewById(R.id.tv_question);
+		tv_question.setTextSize(getResources().getDimension(R.dimen.textsize));
 		tv_Scores = (TextView) findViewById(R.id.tv_Scores);
+		tv_Scores.setTextSize(getResources().getDimension(R.dimen.textsize));
 
 		rbtn_a = (RadioButton) findViewById(R.id.rbtn_a);
+		rbtn_a.setTextSize(getResources().getDimension(R.dimen.textsize));
 		rbtn_b = (RadioButton) findViewById(R.id.rbtn_b);
+		rbtn_b.setTextSize(getResources().getDimension(R.dimen.textsize));
 		rbtn_c = (RadioButton) findViewById(R.id.rbtn_c);
+		rbtn_c.setTextSize(getResources().getDimension(R.dimen.textsize));
 		rbtn_d = (RadioButton) findViewById(R.id.rbtn_d);
+		rbtn_d.setTextSize(getResources().getDimension(R.dimen.textsize));
 		radioGroup1 = (RadioGroup) findViewById(R.id.radioGroup1);
 		imv_Picture = (ImageView) findViewById(R.id.imv_Picture);
-
-		Button btn_previousQuestion = (Button) findViewById(R.id.btn_previousQuestion);
+		btn_ConfirmListening = (Button) findViewById(R.id.btn_ConfirmListening);
+		btn_ConfirmListening.setTextSize(getResources().getDimension(
+				R.dimen.textsize));
+		btn_ResetListening = (Button) findViewById(R.id.btn_ResetListening);
+		btn_ResetListening.setTextSize(getResources().getDimension(
+				R.dimen.textsize));
 		btn_nextQuestion = (Button) findViewById(R.id.btn_nextQuestion);
-		Button btn_Scores = (Button) findViewById(R.id.btn_Scores);
-		btn_previousQuestion.setVisibility(View.GONE);
+		btn_ConfirmListening = (Button) findViewById(R.id.btn_ConfirmListening);
+		btn_ConfirmListening.setTextSize(getResources().getDimension(
+				R.dimen.textsize));
 
 		QuestionManagement db = new QuestionManagement(this);
 
@@ -113,84 +129,16 @@ public class DetailActivityListening extends Activity {
 		tv_Scores.setText("Total correct answer(s): " + countCorrectAnswer
 				+ "/" + amoutOfQuestion);
 
-		// Radiogroup clicked
-
-		radioGroup1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		// btn Reset clicked
+		btn_ResetListening.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				rbtn_a.setTextColor(Color.BLACK);
 				rbtn_b.setTextColor(Color.BLACK);
 				rbtn_c.setTextColor(Color.BLACK);
 				rbtn_d.setTextColor(Color.BLACK);
-
-				switch (checkedId) {
-				// check answer a
-				case R.id.rbtn_a:
-					userAnswer = "a";
-					if (currentQuestion.correctAnswer
-							.equalsIgnoreCase(userAnswer)) {
-						rbtn_a.setTextColor(Color.GREEN);
-						CheckAnswer();
-					} else
-						rbtn_a.setTextColor(Color.RED);
-					rbtn_a.setEnabled(false);
-					rbtn_b.setEnabled(false);
-					rbtn_c.setEnabled(false);
-					rbtn_d.setEnabled(false);
-					break;
-				case R.id.rbtn_b:
-					userAnswer = "b";
-					if (currentQuestion.correctAnswer
-							.equalsIgnoreCase(userAnswer)) {
-						rbtn_b.setTextColor(Color.GREEN);
-						CheckAnswer();
-					} else
-						rbtn_b.setTextColor(Color.RED);
-					rbtn_a.setEnabled(false);
-					rbtn_b.setEnabled(false);
-					rbtn_c.setEnabled(false);
-					rbtn_d.setEnabled(false);
-					break;
-				case R.id.rbtn_c:
-					userAnswer = "c";
-					if (currentQuestion.correctAnswer
-							.equalsIgnoreCase(userAnswer)) {
-						rbtn_c.setTextColor(Color.GREEN);
-						CheckAnswer();
-					} else
-						rbtn_c.setTextColor(Color.RED);
-					rbtn_a.setEnabled(false);
-					rbtn_b.setEnabled(false);
-					rbtn_c.setEnabled(false);
-					rbtn_d.setEnabled(false);
-					break;
-				case R.id.rbtn_d:
-					userAnswer = "d";
-					if (currentQuestion.correctAnswer
-							.equalsIgnoreCase(userAnswer)) {
-						rbtn_d.setTextColor(Color.GREEN);
-						CheckAnswer();
-					} else
-						rbtn_d.setTextColor(Color.RED);
-					rbtn_a.setEnabled(false);
-					rbtn_b.setEnabled(false);
-					rbtn_c.setEnabled(false);
-					rbtn_d.setEnabled(false);
-					break;
-
-				}
-
-			}
-		});
-
-		// btn scores clicked
-		btn_Scores.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				index = 0;
 				ourSong.release();
 				show(index, imageList, musicList);
@@ -198,9 +146,7 @@ public class DetailActivityListening extends Activity {
 				rbtn_b.setEnabled(true);
 				rbtn_c.setEnabled(true);
 				rbtn_d.setEnabled(true);
-				btn_nextQuestion.setEnabled(true);
 				countCorrectAnswer = 0;
-				btn_nextQuestion.setText("Next Question");
 				tv_Scores.setText("Total correct answer(s): "
 						+ countCorrectAnswer + "/" + amoutOfQuestion);
 
@@ -208,43 +154,77 @@ public class DetailActivityListening extends Activity {
 		});
 
 		// Button click next question
-
 		btn_nextQuestion.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				nextQuestion();
+			}
+		});
+
+		btn_ConfirmListening.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				ourSong.release();
-				rbtn_a.setTextColor(Color.BLACK);
-				rbtn_b.setTextColor(Color.BLACK);
-				rbtn_c.setTextColor(Color.BLACK);
-				rbtn_d.setTextColor(Color.BLACK);
-
-				if (radioGroup1.getCheckedRadioButtonId() == -1) {
+				if (radioGroup1.getCheckedRadioButtonId() == -1)
 					Toast.makeText(getBaseContext(), "Please select an answer",
 							Toast.LENGTH_SHORT).show();
-					show(index, imageList, musicList);
-				} else {
-
-					index++;
-					if (index < amoutOfQuestion) {
-						show(index, imageList, musicList);
-						rbtn_a.setEnabled(true);
-						rbtn_b.setEnabled(true);
-						rbtn_c.setEnabled(true);
-						rbtn_d.setEnabled(true);
-						if (index == amoutOfQuestion - 1) {
-							btn_nextQuestion.setText("Finish");
-							btn_nextQuestion.setEnabled(false);
-
-						}
-					} else {
-						index = -1;
-					}
-
+				else {
+					CheckAnswer(userAnswer);
+					btn_ConfirmListening.setEnabled(false);
+					makeColor();
+					rbtn_a.setEnabled(false);
+					rbtn_b.setEnabled(false);
+					rbtn_c.setEnabled(false);
+					rbtn_d.setEnabled(false);
+					ourSong.release();
+					if (index == amoutOfQuestion - 1) {
+						btn_nextQuestion.setEnabled(false);
+						Toast.makeText(
+								getApplicationContext(),
+								"The Test Was Completed" + "\n"
+										+ "Click Back to Return",
+								Toast.LENGTH_SHORT).show();
+					} else
+						btn_nextQuestion.setEnabled(true);
 				}
 			}
 		});
+	}
+
+	// make color for answer
+	public void makeColor() {
+		// make user answer becomes RED
+		if (currentQuestion.answer.equalsIgnoreCase("a")) {
+			rbtn_a.setTextColor(Color.RED);
+			rbtn_a.setChecked(true);
+		}
+
+		else if (currentQuestion.answer.equalsIgnoreCase("b")) {
+			rbtn_b.setTextColor(Color.RED);
+			rbtn_b.setChecked(true);
+
+		} else if (currentQuestion.answer.equalsIgnoreCase("c")) {
+			rbtn_c.setTextColor(Color.RED);
+			rbtn_c.setChecked(true);
+
+		} else if (currentQuestion.answer.equalsIgnoreCase("d")) {
+			rbtn_d.setTextColor(Color.RED);
+			rbtn_d.setChecked(true);
+
+		}
+
+		// make the correct answer is BLUE
+		if (currentQuestion.correctAnswer.equalsIgnoreCase("a")) {
+			rbtn_a.setTextColor(Color.BLUE);
+		} else if (currentQuestion.correctAnswer.equalsIgnoreCase("b")) {
+			rbtn_b.setTextColor(Color.BLUE);
+		} else if (currentQuestion.correctAnswer.equalsIgnoreCase("c")) {
+			rbtn_c.setTextColor(Color.BLUE);
+		} else if (currentQuestion.correctAnswer.equalsIgnoreCase("d")) {
+			rbtn_d.setTextColor(Color.BLUE);
+		}
 
 	}
 
@@ -273,21 +253,25 @@ public class DetailActivityListening extends Activity {
 	}
 
 	// check answer function
-	public void CheckAnswer() {
-		String a = "";
+	public void CheckAnswer(String userAnswer) {
 		if (rbtn_a.isChecked() == true)
-			a = "a";
+			userAnswer = "a";
 		else if (rbtn_b.isChecked() == true)
-			a = "b";
+			userAnswer = "b";
 		else if (rbtn_c.isChecked() == true)
-			a = "c";
+			userAnswer = "c";
 		else if (rbtn_d.isChecked() == true)
-			a = "d";
+			userAnswer = "d";
 
-		list_question.get(index).answer = a;
+		list_question.get(index).answer = userAnswer;
 
-		if (a.equalsIgnoreCase(currentQuestion.correctAnswer))
+		if (userAnswer.equalsIgnoreCase(currentQuestion.correctAnswer)) {
 			countCorrectAnswer++;
+			Toast.makeText(getApplicationContext(), "Correct answer",
+					Toast.LENGTH_SHORT).show();
+		} else
+			Toast.makeText(getApplicationContext(), "Wrong answer",
+					Toast.LENGTH_SHORT).show();
 		tv_Scores.setText("Total correct answer(s): " + countCorrectAnswer
 				+ "/" + amoutOfQuestion);
 	}
@@ -317,6 +301,10 @@ public class DetailActivityListening extends Activity {
 		rbtn_c.setText(currentQuestion.answer_c);
 		rbtn_d.setText(currentQuestion.answer_d);
 		radioGroup1.clearCheck();
+		// Enable Confirm Button
+		// btn_ConfirmListening.setEnabled(true);
+		// Disable Next Button
+		btn_nextQuestion.setEnabled(false);
 	}
 
 	@Override
@@ -335,5 +323,98 @@ public class DetailActivityListening extends Activity {
 		} else
 			return;
 	}
+
+	// NextQuestion function ... move to next question
+	public void nextQuestion() {
+		btn_ConfirmListening.setEnabled(true);
+		ourSong.release();
+		rbtn_a.setTextColor(Color.BLACK);
+		rbtn_b.setTextColor(Color.BLACK);
+		rbtn_c.setTextColor(Color.BLACK);
+		rbtn_d.setTextColor(Color.BLACK);
+		if (radioGroup1.getCheckedRadioButtonId() == -1) {
+			Toast.makeText(getBaseContext(), "Please select an answer",
+					Toast.LENGTH_SHORT).show();
+			show(index, imageList, musicList);
+		} else {
+			index++;
+			if (index < amoutOfQuestion && index >= 0) {
+				show(index, imageList, musicList);
+				rbtn_a.setEnabled(true);
+				rbtn_b.setEnabled(true);
+				rbtn_c.setEnabled(true);
+				rbtn_d.setEnabled(true);
+				if (index == amoutOfQuestion - 1) {
+					btn_nextQuestion.setText("Finish");
+					btn_nextQuestion.setEnabled(false);
+				}
+			} else if (index == amoutOfQuestion) {
+				index = amoutOfQuestion - 1;
+			} else {
+				index = -1;
+
+			}
+
+		}
+	}
+
+	// BackQuestion function ... move to previous question
+	public void backQuestion() {
+		btn_ConfirmListening.setEnabled(false);
+		ourSong.release();
+		index--;
+		if (index < amoutOfQuestion && index >= 0) {
+			show(index, imageList, musicList);
+			makeColor();
+			rbtn_a.setEnabled(false);
+			rbtn_b.setEnabled(false);
+			rbtn_c.setEnabled(false);
+			rbtn_d.setEnabled(false);
+			if (index == amoutOfQuestion - 1) {
+				btn_nextQuestion.setText("Finish");
+				btn_nextQuestion.setEnabled(false);
+			}
+		} else if (index == -1) {
+			index = 0;
+		}
+
+		else {
+			index = -1;
+
+		}
+	}
+
+	// Swipe detector
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		return gestureDetector.onTouchEvent(event);
+	}
+
+	SimpleOnGestureListener simpleOnGestureListener = new SimpleOnGestureListener() {
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+			float sensitvity = 50;
+
+			// If swipe from right to left
+			if ((e1.getX() - e2.getX()) > sensitvity) {
+
+				// CheckAnswer(userAnswer);
+				nextQuestion();
+
+			}
+			// if swipe from left to right (BACK TO PREVIOUS QUESTION)
+			else if ((e2.getX() - e1.getX()) > sensitvity) {
+				// backQuestion();
+			}
+
+			return super.onFling(e1, e2, velocityX, velocityY);
+		}
+	};
+
+	GestureDetector gestureDetector = new GestureDetector(
+			simpleOnGestureListener);
 
 }

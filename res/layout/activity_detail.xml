@@ -79,18 +79,18 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btn_previousQuestion"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="Previous Question" />
-
-        <Button
-            android:id="@+id/btn_Scores"
+            android:id="@+id/btn_Reset"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="Reset" />
+
+        <Button
+            android:id="@+id/btn_Confirm"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="Confirm Answer" />
 
         <Button
             android:id="@+id/btn_nextQuestion"

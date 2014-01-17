@@ -84,7 +84,7 @@ public class ListTestActivity extends Activity implements OnClickListener {
 
 			} else if (inputButton_Type == AppConst.READING) {
 				Intent startActivityReading = new Intent(ListTestActivity.this,
-						DetailActivity.class);
+						DetailActivityReading.class);
 				startActivityReading.putExtra(AppConst.DB_TYPE,
 						inputButton_Type);
 				startActivityReading.putExtra(AppConst.TEST_INDEX, indexTest);

@@ -37,6 +37,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_gravity="center"
         android:orientation="vertical" >
 
         <RadioGroup
@@ -44,6 +45,7 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:orientation="horizontal" >
 
             <RadioButton
@@ -75,16 +77,16 @@
                 android:gravity="center_vertical|left"
                 android:text="D" />
         </RadioGroup>
-
-        <TextView
-            android:id="@+id/tv_Scores"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Scores"
-            android:textAppearance="?android:attr/textAppearanceLarge" >
-        </TextView>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_Scores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Scores"
+        android:textAppearance="?android:attr/textAppearanceLarge" >
+    </TextView>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -92,18 +94,18 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btn_previousQuestion"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="Previous Question" />
-
-        <Button
-            android:id="@+id/btn_Scores"
+            android:id="@+id/btn_ResetListening"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="Reset" />
+
+        <Button
+            android:id="@+id/btn_ConfirmListening"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="Confirm Answer" />
 
         <Button
             android:id="@+id/btn_nextQuestion"
