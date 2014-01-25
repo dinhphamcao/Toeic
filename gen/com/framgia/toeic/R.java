@@ -9,10 +9,20 @@ package com.framgia.toeic;
 
 public final class R {
     public static final class array {
-        public static final int list_listening=0x7f050001;
-        public static final int list_reading=0x7f050000;
+        public static final int list_listening=0x7f070001;
+        public static final int list_practice=0x7f070002;
+        public static final int list_reading=0x7f070000;
+        public static final int list_test=0x7f070003;
     }
     public static final class attr {
+    }
+    public static final class bool {
+        /**  Enable automatic activity tracking 
+         */
+        public static final int ga_autoActivityTracking=0x7f060000;
+        /**  Enable automatic exception tracking 
+         */
+        public static final int ga_reportUncaughtExceptions=0x7f060001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -21,15 +31,15 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f060000;
-        public static final int activity_vertical_margin=0x7f060001;
+        public static final int activity_horizontal_margin=0x7f080000;
+        public static final int activity_vertical_margin=0x7f080001;
         /** 
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw600dp devices (e.g. 7" tablets) here.
          
     
          */
-        public static final int textsize=0x7f060002;
+        public static final int textsize=0x7f080002;
     }
     public static final class drawable {
         public static final int first_1=0x7f020000;
@@ -67,39 +77,43 @@ public final class R {
         public static final int splash=0x7f020020;
     }
     public static final class id {
-        public static final int Main=0x7f0a000e;
-        public static final int action_settings=0x7f0a0015;
-        public static final int btn_Confirm=0x7f0a0009;
-        public static final int btn_ConfirmListening=0x7f0a000d;
-        public static final int btn_Reset=0x7f0a0008;
-        public static final int btn_ResetListening=0x7f0a000c;
-        public static final int btn_nextQuestion=0x7f0a000a;
-        public static final int footer=0x7f0a0011;
-        public static final int img_splash=0x7f0a0012;
-        public static final int imv_Picture=0x7f0a000b;
-        public static final int radioGroup1=0x7f0a0002;
-        public static final int rbtn_a=0x7f0a0003;
-        public static final int rbtn_b=0x7f0a0004;
-        public static final int rbtn_c=0x7f0a0005;
-        public static final int rbtn_d=0x7f0a0006;
-        public static final int test_list=0x7f0a0013;
-        public static final int tv_Scores=0x7f0a0007;
-        public static final int tv_listening=0x7f0a0010;
-        public static final int tv_question=0x7f0a0001;
-        public static final int tv_question_title=0x7f0a0000;
-        public static final int tv_reading=0x7f0a000f;
-        public static final int tv_test_row=0x7f0a0014;
+        public static final int Main=0x7f0b000f;
+        public static final int action_settings=0x7f0b0018;
+        public static final int adView=0x7f0b0000;
+        public static final int btn_Confirm=0x7f0b000e;
+        public static final int btn_ConfirmListening=0x7f0b000b;
+        public static final int btn_Reset=0x7f0b000d;
+        public static final int btn_ResetListening=0x7f0b000a;
+        public static final int btn_nextQuestion=0x7f0b000c;
+        public static final int footer=0x7f0b0012;
+        public static final int img_splash=0x7f0b0015;
+        public static final int imv_Picture=0x7f0b0003;
+        public static final int radioGroup1=0x7f0b0004;
+        public static final int rbtn_a=0x7f0b0005;
+        public static final int rbtn_b=0x7f0b0006;
+        public static final int rbtn_c=0x7f0b0007;
+        public static final int rbtn_d=0x7f0b0008;
+        public static final int test_list=0x7f0b0016;
+        public static final int tv_Practice=0x7f0b0013;
+        public static final int tv_Scores=0x7f0b0009;
+        public static final int tv_Test=0x7f0b0014;
+        public static final int tv_listening=0x7f0b0011;
+        public static final int tv_question=0x7f0b0002;
+        public static final int tv_question_title=0x7f0b0001;
+        public static final int tv_reading=0x7f0b0010;
+        public static final int tv_test_row=0x7f0b0017;
     }
     public static final class layout {
-        public static final int activity_detail=0x7f030000;
-        public static final int activity_detail_listening=0x7f030001;
+        public static final int activity_detail_listening=0x7f030000;
+        public static final int activity_detail_reading=0x7f030001;
         public static final int activity_home=0x7f030002;
-        public static final int activity_splash=0x7f030003;
-        public static final int activity_test_list=0x7f030004;
-        public static final int test_row=0x7f030005;
+        public static final int activity_home0=0x7f030003;
+        public static final int activity_splash=0x7f030004;
+        public static final int activity_test_list=0x7f030005;
+        public static final int test_row=0x7f030006;
     }
     public static final class menu {
-        public static final int main=0x7f090000;
+        public static final int main=0x7f0a0000;
     }
     public static final class raw {
         public static final int first_1=0x7f040000;
@@ -134,9 +148,12 @@ public final class R {
         public static final int four_9=0x7f04001d;
     }
     public static final class string {
-        public static final int action_settings=0x7f070001;
-        public static final int app_name=0x7f070000;
-        public static final int hello_world=0x7f070002;
+        public static final int action_settings=0x7f050002;
+        public static final int app_name=0x7f050001;
+        /**  Replace placeholder ID with your tracking ID 
+         */
+        public static final int ga_trackingId=0x7f050000;
+        public static final int hello_world=0x7f050003;
     }
     public static final class style {
         /** 
@@ -160,10 +177,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f080000;
+        public static final int AppBaseTheme=0x7f090000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f080001;
+        public static final int AppTheme=0x7f090001;
     }
 }

@@ -11,5 +11,15 @@
         <item>Listening Test 2</item>
         <item>Listening Test 3</item>
     </string-array>
+    <string-array name="list_practice">
+        <item >Practice Reading</item>
+        <item >Practice Listening</item>
+        
+    </string-array>
+    <string-array name="list_test">
+        <item >Test Reading</item>
+        <item >Test Listening</item>
+        
+    </string-array>
 
 </resources>

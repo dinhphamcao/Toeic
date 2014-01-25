@@ -12,6 +12,14 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
+        <com.google.ads.AdView
+            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+            android:id="@+id/adView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            googleads:adSize="BANNER"
+            googleads:adUnitId="a152e1110c56a48" />
+
         <TextView
             android:id="@+id/tv_question_title"
             android:layout_width="wrap_content"
@@ -36,16 +44,16 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <RadioGroup
             android:id="@+id/radioGroup1"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:orientation="horizontal" >
 
             <RadioButton
@@ -79,14 +87,20 @@
         </RadioGroup>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_Scores"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Scores"
-        android:textAppearance="?android:attr/textAppearanceLarge" >
-    </TextView>
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_Scores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Scores"
+            android:textAppearance="?android:attr/textAppearanceLarge" >
+        </TextView>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"

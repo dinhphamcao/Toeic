@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.framgia.toeic.until.AppConst;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import com.google.analytics.tracking.android.EasyTracker;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -26,6 +29,8 @@ public class DetailActivityReading extends Activity {
 
 	int amoutOfQuestion = 10;
 	int index = 0;
+	TextView tv_Practive, tv_Test;
+	AdView adview;
 
 	// variable get index of READING Test type
 	private int indexTest;
@@ -42,7 +47,12 @@ public class DetailActivityReading extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_detail);
+		setContentView(R.layout.activity_detail_reading);
+
+		adview = (AdView) findViewById(R.id.adView);
+		AdRequest re = new AdRequest();
+		re.setTesting(true);
+		adview.loadAd(re);
 
 		// init defined
 		tv_question_title = (TextView) findViewById(R.id.tv_question_title);
@@ -300,7 +310,7 @@ public class DetailActivityReading extends Activity {
 
 			// If swipe from right to left
 			if ((e1.getX() - e2.getX()) > sensitvity) {
-				//CheckAnswer(userAnswer);
+				// CheckAnswer(userAnswer);
 
 				nextQuestion();
 
@@ -322,6 +332,20 @@ public class DetailActivityReading extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		EasyTracker.getInstance(this).activityStart(this); // Add this method.
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+
+		EasyTracker.getInstance(this).activityStop(this); // Add this method.
 	}
 
 }

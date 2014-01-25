@@ -25,6 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.framgia.toeic.until.AppConst;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class DetailActivityListening extends Activity {
 	int amoutOfQuestion = 10;
@@ -34,6 +37,9 @@ public class DetailActivityListening extends Activity {
 	List<Question> list_question;
 	Question currentQuestion;
 	int countCorrectAnswer = 0;
+
+	TextView tv_Practive, tv_Test;
+	AdView adview;
 	// variable get index of LISTENING Test type
 	private int indexTest;
 
@@ -74,6 +80,11 @@ public class DetailActivityListening extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_detail_listening);
+
+		adview = (AdView) findViewById(R.id.adView);
+		AdRequest re = new AdRequest();
+		re.setTesting(true);
+		adview.loadAd(re);
 
 		// initial defined
 		tv_question_title = (TextView) findViewById(R.id.tv_question_title);
@@ -317,6 +328,8 @@ public class DetailActivityListening extends Activity {
 	@Override
 	public void onStop() {
 		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this); // Add this method.
+
 		if (ourSong.isPlaying()) {
 			ourSong.stop();
 			finish();
@@ -337,6 +350,7 @@ public class DetailActivityListening extends Activity {
 					Toast.LENGTH_SHORT).show();
 			show(index, imageList, musicList);
 		} else {
+
 			index++;
 			if (index < amoutOfQuestion && index >= 0) {
 				show(index, imageList, musicList);
@@ -416,5 +430,12 @@ public class DetailActivityListening extends Activity {
 
 	GestureDetector gestureDetector = new GestureDetector(
 			simpleOnGestureListener);
+
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		EasyTracker.getInstance(this).activityStart(this); // Add this method.
+	}
 
 }

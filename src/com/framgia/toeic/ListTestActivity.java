@@ -11,10 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.framgia.toeic.until.AppConst;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class ListTestActivity extends Activity implements OnClickListener {
 	private String[] listItem;
 	private int inputButton_Type;
+	TextView tv_Practive, tv_Test;
+	AdView adview;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,11 @@ public class ListTestActivity extends Activity implements OnClickListener {
 		}
 
 		initView(listItem, inputButton_Type);
+
+		adview = (AdView) findViewById(R.id.adView);
+		AdRequest re = new AdRequest();
+		re.setTesting(true);
+		adview.loadAd(re);
 
 	}
 
@@ -92,7 +102,6 @@ public class ListTestActivity extends Activity implements OnClickListener {
 						inputButton_Type);
 				startActivity(startActivityReading);
 			}
-
 		}
 
 	}
@@ -103,6 +112,20 @@ public class ListTestActivity extends Activity implements OnClickListener {
 		super.onBackPressed();
 		finish();
 
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		EasyTracker.getInstance(this).activityStart(this); // Add this method.
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+
+		EasyTracker.getInstance(this).activityStop(this); // Add this method.
 	}
 
 }
